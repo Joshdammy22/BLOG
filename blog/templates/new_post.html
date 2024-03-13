@@ -1,0 +1,93 @@
+{% extends 'layouts.html' %}
+
+<!-- {% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layouts.css')}}">
+{% endblock %} -->
+
+
+{% block nav %}
+
+<header>
+    <div class="logo">
+        <h1 class="logo-text"><a href="{{url_for('main.home_page')}}" style="text-decoration: none;"><span>pRO</span>bLOg</a></h1>
+    </div>
+
+    <i class="fa-solid fa-bars menu-toggle" style="font-size: .8rem;"></i>
+
+    <ul class="nav">
+      {% if current_user.is_authenticated %}
+        <li><a href="{{url_for('main.blog_page')}}">Blog</a></li> 
+        <li>
+            <a href="#">
+                <i class="fa-regular fa-user" style="font-size: .8rem;"></i> {{ current_user.username }} <i class="fa-solid fa-chevron-down" style="font-size: .8rem;"></i></a>
+            <ul>
+                <li><a href="{{url_for('users.dashboard_page')}}">Dashboard</a></li>
+                <li><a href="{{url_for('users.logout_page')}}" class="Logout">Log out</a></li>
+            </ul>
+        </li>
+    {% else %}
+      <li><a href="{{url_for('main.home_page')}}"> Home</a></li>
+      <li><a href="{{url_for('users.login_page')}}">Sign in </a></li> 
+      <li><a href="{{url_for('users.register_page')}}">Register</a></li> 
+    {% endif %}
+  </header>
+{% endblock %}
+
+{% block content %}
+<div class="container-box11">
+    <div class="container-box22">
+        <legend class="h">{{ legend }}</legend>
+        <br>
+        
+        <form method="POST" class="form-contain1" style="color: white;" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group-box1">
+                <label for="{{ form.title.id }}" class="control-label-box1">{{ form.title.label.text }}</label>
+                {{ form.title(class="form-control-box") }}
+                {% if form.title.errors %}
+                    <ul class="errors">
+                        {% for error in form.title.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group-box2">
+                <label for="{{ form.content.id }}" class="control-label-box1">{{ form.content.label.text }}</label>
+                {{ form.content(class="content-box" | safe) }}
+                {% if form.content.errors %}
+                    <ul class="errors">
+                        {% for error in form.content.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group-box3">
+                <label for="{{ form.image_file.id }}" class="control-label-box1">{{ form.image_file.label.text }}</label>
+                {{ form.image_file(class="form-control-box-image") }}
+                {% if form.image_file.errors %}
+                    <ul class="errors">
+                        {% for error in form.image_file.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group-btn">
+                {{ form.submit(class="btn-post") }}
+            </div>
+            
+        </form>   
+        {# CKEditor integration #}
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
+
+
+    </div>
+</div>    
+{% endblock %}

@@ -1,0 +1,64 @@
+    def get_reset_token(self, expires_sec=1800):
+        expires_sec = int(expires_sec)
+        # Convert self.id to bytes
+        user_id_bytes = str(self.id).encode('utf-8')
+
+        # Use base64 encoding for bytes to ensure JSON serialization
+        user_id_base64 = base64.urlsafe_b64encode(user_id_bytes).decode('utf-8')
+
+        secret_key = current_app.config['SECRET_KEY']
+        s = Serializer(secret_key, expires_sec)
+
+        return s.dumps({'user_id': user_id_base64}).decode('utf-8')
+
+    
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_id= s.loads(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
+
+
+
+
+    '''@property
+    def password(self):
+        return self.password
+    
+    @password.setter
+    def password(self, plain_text_password):
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
+
+    def check_password_correction_hash(self, attempted_password):
+        return bcrypt.check.password_hash(self.password_hash, attempted_password)
+    '''
+    
+
+    def query_get(user_id):
+        return User(user_id)
+    '''
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return (self.id)
+    
+    def set_id(self, user_id):
+        self.user_id = user_id
+
+    def is_active(self):
+        return True
+
+    @property
+    def is_authenticated(self):
+        return True
+
+
+
+     s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+    
+'''

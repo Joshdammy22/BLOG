@@ -1,0 +1,63 @@
+{% extends 'layouts.html' %}
+
+<!-- {% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layouts.css')}}">
+{% endblock %} -->
+
+
+{% block nav %}
+
+<header>
+  <div class="logo">
+      <h1 class="logo-text"><a href="{{url_for('main.home_page')}}" style="text-decoration: none;"><span>pRO</span>bLOg</a></h1>
+  </div>
+
+  <i class="fa-solid fa-bars menu-toggle" style="font-size: .8rem;"></i>
+
+  <ul class="nav">
+    {% if current_user.is_authenticated %}
+      {% if current_user.id == 1 %}
+    <!-- Only show the Admin link for the user with id 1 -->
+        <li><a href="{{url_for('main.admin')}}">Admin</a></li>
+      {% endif %}
+      <li><a href="{{url_for('main.home_page')}}">Home</a></li> 
+      <li><a href="{{url_for('main.blog_page')}}">Blogs</a></li>
+      <li><a href="{{url_for('users.update_page')}}">Account Settings</a></li>
+      <li><a href="{{url_for('posts.new_post')}}">New Post</a></li>
+      <li><a href="{{url_for('users.logout_page')}}" class="Logout">Log out</a></li>
+    {% else %}
+      <li><a href="{{url_for('main.home_page')}}"> Home</a></li>
+      <li><a href="{{url_for('users.login_page')}}">Sign in </a></li> 
+      <li><a href="{{url_for('users.register_page')}}">Register</a></li>   
+    {% endif %}
+
+  </ul>
+</header>
+
+{% endblock %}
+
+<!--src="{{ url_for('static', filename='images/default.jpg') }}"-->
+{% block content %}
+    <body>
+        <section id="profile">
+          <div class="alignment">
+            <h2>Welcome, {{ current_user.username }}!</h2>
+            <div class="profile-image-container">
+              <img class="profile-image" src="../static/profile_pics/{{ current_user.image_file }}" alt="Profile Picture">
+
+            </div>
+          
+            <div class="user-info">
+                <p>User ID: {{ current_user.id }}</p>
+                <p>Email: {{ current_user.email }}</p>
+                <p>Date of birth: {{ current_user.date_of_birth }}</p>
+                <p>Nationality: {{ current_user.nationality }}</p>
+                <p>Gender: {{ current_user.gender }}</p>
+                <p>Full Name: {{ current_user.full_name }}</p>
+                <p>Bio: {{ current_user.bio }}</p>
+                <strong><p>Date joined:</strong> {{ current_user.created_at.strftime('%Y-%m-%d') }}</p></strong>
+            </div>
+          </div>
+        </section>
+    </body>
+{% endblock %}

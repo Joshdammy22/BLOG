@@ -1,0 +1,61 @@
+{% extends 'layouts.html' %}
+
+<!-- {% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layouts.css')}}">
+{% endblock %} -->
+
+
+
+{% block nav %}
+<header>
+    <div class="logo">
+        <h1 class="logo-text"><a href="{{url_for('main.home_page')}}" style="text-decoration: none;"><span>pRO</span>bLOg</a></h1>
+    </div>
+
+    <i class="fa-solid fa-bars menu-toggle" style="font-size: .8rem;"></i>
+
+        
+        <ul class="nav">
+            <li><a href="{{url_for('main.home_page')}}">Home</a></li>
+            
+            <li><a href="{{url_for('users.register_page')}}">Register </a></li> 
+          </ul>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<div class="contain1">
+    <div class="contain2">
+        <h2>Reset Password</h2>
+        <br>
+            <form method="POST" class="form-contain" style="color: white;">
+                {{ form.hidden_tag() }}
+               
+
+                <div class="form-group">
+                    {{ form.email.label(class="control-label") }}
+                    <br>
+                    {% if form.email.errors %}
+                        <ul class="errors">
+                            {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ form.email(class="form-control") }}
+                    {% endif %}
+                   
+                </div>
+                
+                <div class="form-group">
+                    {{ form.submit(class="btn") }}
+                </div>
+               
+            </form>   
+    </div>
+</div>    
+{% endblock %}
+
+
+</html>

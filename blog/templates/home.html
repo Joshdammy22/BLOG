@@ -1,0 +1,99 @@
+{% extends 'layouts.html' %}
+
+<!-- {% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='responsiveness.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layouts.css')}}">
+{% endblock %} -->
+
+
+
+
+0
+<Lbody>
+{% block nav %}
+<header>
+  <div class="logo">
+    <h1 class="logo-text"><a href="{{url_for('main.home_page')}}" style="text-decoration: none;"><span>pRO</span>bLOg</a></h1>
+</div>
+<i class="fa-solid fa-bars menu-toggle" style="font-size: .8rem;"></i>
+
+<ul class="nav">
+  {% if current_user.is_authenticated %}
+    <li><a href="{{url_for('main.blog_page')}}">Blog</a></li> 
+    <li>
+        <a href="#">
+            <i class="fa-regular fa-user" style="font-size: .8rem;"></i> {{ current_user.username }} <i class="fa-solid fa-chevron-down" style="font-size: .8rem;"></i></a>
+        <ul>
+            <li><a href="{{url_for('users.dashboard_page')}}">Dashboard</a></li>
+            <li><a href="{{url_for('users.logout_page')}}" class="Logout">Log out</a></li>
+        </ul>
+    </li>
+
+  {% else %}
+    <li><a href="{{url_for('main.home_page')}}"> Home</a></li>
+    <li><a href="{{url_for('users.login_page')}}">Sign in </a></li> 
+    <li><a href="{{url_for('users.register_page')}}">Register</a></li> 
+
+       
+  {% endif%}
+</ul>
+  </header>
+
+{% endblock %}
+
+
+
+{% block content %}
+  <div class="mag">
+    <div class="landing-page" >
+      <div class="hero-section">
+        <h1>Welcome to Your Blogging Journey</h1>
+        <p>Unleash your creativity, share your thoughts, and connect with a global audience. Start your blogging adventure today.</p>
+        <a href="{{ url_for('users.register_page') }}" class="get-started-btn Get">Get Started</a>
+      </div>
+  
+      <div class="features-section">
+  
+        <div class="feature-box">
+          <h2>Write</h2>
+          <p>Create compelling blog posts using our intuitive editor. Express yourself and share your unique perspective.</p>
+        </div>
+  
+        <div class="feature-box">
+          <img src="{{url_for('static', filename='images/🦆 icon _Edit_.svg')}}" alt="Edit Icon">
+          <h2>Edit</h2>
+          <p>Edit your posts effortlessly. Refine your content, add images, and make your stories stand out.</p>
+        </div>
+  
+        <div class="feature-box">
+          <img src="{{url_for('static', filename='images/🦆 icon _Upload_.svg')}}" alt="Publish Icon">
+          <h2>Publish</h2>
+          <p>Reach a wider audience by publishing your posts with a single click. Share your ideas with the world.</p>
+        </div>
+      </div>
+  
+      <div class="cta-section">
+        <a href="{{ url_for('users.register_page') }}" class="get-started-btn">Get Started</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block footer%}
+    <!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="copyright">
+            <p>&copy; 2023 Your Blog. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+{% endblock%}
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    {% block styles %}
+        <link rel="stylesheet" href="{{url_for('static', filename='layouts.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='responsiveness.css')}}">
+    {% endblock %}
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Candal&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+        {{ title }}
+
+    </title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/blog.png')}}" type="image/x-icon">
+      
+
+</head>
+<body>
+  
+
+  
+
+  {% block nav %}
+    <!---NAvigation bar-->
+  {% endblock %}
+    
+
+   
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="maindiv">
+          <div>
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <small class="small-text">
+                  {{ message }}
+                </small>
+              </div>
+            {% endfor %}
+          </div> 
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+  
+
+  {% block content %}
+    <!---body-->
+   
+  {% endblock %}
+
+
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var closeButtons = document.querySelectorAll('.close');
+    
+    closeButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var alert = this.closest('.alert');
+        if (alert) {
+          alert.remove(); // or hide the alert
+        }
+      });
+    });
+  });
+  </script>
+  
+
+
+  <script src="https://kit.fontawesome.com/c2478518ff.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/c2478518ff.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!--Custom Js-->
+  <script src="{{url_for('static', filename='js/script.js')}}"></script>
+
+  
+
+
+
+
+    
+
+  
+{% block footer %}
+
+
+
+{% endblock %}
+</body>
+</html>
+
+
+
+
+
+

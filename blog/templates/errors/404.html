@@ -1,0 +1,40 @@
+{% extends 'layouts.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layouts.css')}}">
+{% endblock %}
+
+{% block nav %}
+<header>
+  <div class="logo">
+    <h1 class="logo-text"><a href="{{url_for('main.home_page')}}" style="text-decoration: none;"><span>pRO</span>bLOg</a></h1>
+</div>
+<i class="fa-solid fa-bars menu-toggle" style="font-size: .8rem;"></i>
+
+<ul class="nav">
+  {% if current_user.is_authenticated %}
+    <li><a href="{{url_for('main.blog_page')}}">Blog</a></li> 
+    <li>
+        <a href="#">
+            <i class="fa-regular fa-user" style="font-size: .8rem;"></i> {{ current_user.username }} <i class="fa-solid fa-chevron-down" style="font-size: .8rem;"></i></a>
+        <ul>
+            <li><a href="{{url_for('users.dashboard_page')}}">Dashboard</a></li>
+            <li><a href="{{url_for('users.logout_page')}}" class="Logout">Log out</a></li>
+        </ul>
+    </li>
+
+  {% else %}
+    <li><a href="{{url_for('main.home_page')}}"> Home</a></li>
+    <li><a href="{{url_for('users.login_page')}}">Sign in </a></li> 
+    <li><a href="{{url_for('users.register_page')}}">Register</a></li> 
+
+       
+  {% endif%}
+  {% endblock %}
+
+{% block content %}
+    <div class="content-section">
+        <h1>Page not found(404)</h1>
+        <p>That page does not exist, Please check the url and try again!</p>
+    </div>
+{% endblock %}
